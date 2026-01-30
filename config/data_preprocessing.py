@@ -152,7 +152,7 @@ class CommentPreprocessor:
         
         return filtered_words
     
-    def extract_keywords_tfidf(self, documents, top_k=15):
+    def extract_keywords_tfidf(self, documents, top_k=10):
         """
         使用TF-IDF提取每条评论的关键词
         
@@ -261,7 +261,7 @@ class CommentPreprocessor:
         result_df.to_csv(output_file, index=False, encoding='utf-8-sig')
         
         # 单独保存事务数据库（用于关联规则挖掘）
-        transactions_file = 'data/transactions.txt'
+        transactions_file = 'transactions.txt'
         with open(transactions_file, 'w', encoding='utf-8') as f:
             for i, transaction in enumerate(transactions):
                 if transaction:  # 跳过空事务
@@ -269,7 +269,7 @@ class CommentPreprocessor:
         print(f"事务数据库保存到: {transactions_file}")
         
         # 保存词汇表
-        vocab_file = 'data/vocabulary.txt'
+        vocab_file = 'vocabulary.txt'
         with open(vocab_file, 'w', encoding='utf-8') as f:
             for word in vocabulary:
                 f.write(f"{word}\n")
@@ -299,23 +299,20 @@ class CommentPreprocessor:
 def main():
     """主函数"""
     # 配置参数
-    INPUT_FILE = 'data/jd_cleaned_comments.csv'  # 输入文件
-    STOPWORDS_FILE = 'data/stopwords.txt'        # 停用词文件
-    OUTPUT_FILE = 'data/preprocessed_transactions.csv'  # 输出文件
-    TOP_K = 15  # 每条评论提取的关键词数量
+    INPUT_FILE = 'jd_cleaned_comments.csv'  # 输入文件
+    STOPWORDS_FILE = 'stopwords.txt'        # 停用词文件
+    OUTPUT_FILE = 'preprocessed_transactions.csv'  # 输出文件
+    TOP_K = 10  # 每条评论提取的关键词数量
     
     # 创建预处理器
     preprocessor = CommentPreprocessor(stopwords_file=STOPWORDS_FILE)
     
     # 执行预处理
-    result = preprocessor.process(
+    df, transactions, vocabulary = preprocessor.process(
         input_file=INPUT_FILE,
         output_file=OUTPUT_FILE,
         top_k=TOP_K
     )
-    if result is None:
-        return
-    df, transactions, vocabulary = result
     
     # 打印示例结果
     if df is not None:

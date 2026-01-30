@@ -23,7 +23,7 @@ def main():
         "apriori": apriori_impl.run,
         "fpgrowth": fpgrowth_impl.run,
         "eclat": eclat_impl.run,
-        "apriori_hash_trie": apriori_hash_trie_impl.run,
+        "apriori_improved": apriori_hash_trie_impl.run,
     }
 
     results_dir = os.path.join(ROOT, "results")

@@ -17,14 +17,14 @@ def main():
 
     # 同样降低阈值以便生成更多规则
     min_conf = 0.4
-    min_support = 0.3
+    min_support = 0.005
     scales = [0.2, 0.4, 0.6, 0.8, 1.0]
 
     algos: Dict[str, Callable] = {
         "apriori": apriori_impl.run,
         "fpgrowth": fpgrowth_impl.run,
         "eclat": eclat_impl.run,
-        "apriori_hash_trie": apriori_hash_trie_impl.run,
+        "apriori_improved": apriori_hash_trie_impl.run,
     }
 
     results_dir = os.path.join(ROOT, "results")
