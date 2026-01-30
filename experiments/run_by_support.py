@@ -8,7 +8,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
 from utils import load_transactions, eval_rules_comprehensive, profile_execution
-from algorithms import apriori_impl, fpgrowth_impl, eclat_impl, apriori_improved_impl
+from algorithms import apriori_impl, fpgrowth_impl, eclat_impl, apriori_hash_trie_impl
 
 
 def main():
@@ -23,7 +23,7 @@ def main():
         "apriori": apriori_impl.run,
         "fpgrowth": fpgrowth_impl.run,
         "eclat": eclat_impl.run,
-        "apriori_improved": apriori_improved_impl.run,
+        "apriori_hash_trie": apriori_hash_trie_impl.run,
     }
 
     results_dir = os.path.join(ROOT, "results")

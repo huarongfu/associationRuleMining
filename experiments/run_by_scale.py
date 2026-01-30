@@ -8,7 +8,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
 from utils import load_transactions, sample_transactions, eval_rules_comprehensive, profile_execution
-from algorithms import apriori_impl, fpgrowth_impl, eclat_impl, apriori_improved_impl
+from algorithms import apriori_impl, fpgrowth_impl, eclat_impl, apriori_hash_trie_impl
 
 
 def main():
@@ -17,14 +17,14 @@ def main():
 
     # 同样降低阈值以便生成更多规则
     min_conf = 0.4
-    min_support = 0.005
+    min_support = 0.3
     scales = [0.2, 0.4, 0.6, 0.8, 1.0]
 
     algos: Dict[str, Callable] = {
         "apriori": apriori_impl.run,
         "fpgrowth": fpgrowth_impl.run,
         "eclat": eclat_impl.run,
-        "apriori_improved": apriori_improved_impl.run,
+        "apriori_hash_trie": apriori_hash_trie_impl.run,
     }
 
     results_dir = os.path.join(ROOT, "results")
